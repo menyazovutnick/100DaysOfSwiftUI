@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
+    
+    //MARK: - CUSTOM PROPERTIES
     @State var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "US"].shuffled()
     @State var correctAnswer = Int.random(in: 0...2)
     
@@ -19,6 +21,8 @@ struct ContentView: View {
     @State private var questionCount = 1
     @State private var showingFinalAlert = false
     
+    
+    //MARK: - UI
     var body: some View {
         ZStack {
             RadialGradient(stops: [
@@ -50,8 +54,7 @@ struct ContentView: View {
                             questionCount += 1
                         } label: {
                             Image(countries[number])
-                                .clipShape(.capsule)
-                                .shadow(radius: 5)
+                                .flagImageStyle()
                         }
                     }
                 }
@@ -110,9 +113,26 @@ struct ContentView: View {
         score = 0
         askQuestion()
     }
-    
 }
 
+
+//MARK: - FLAG CUSTOM MODIFIER
+struct FlagImage: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .clipShape(.capsule)
+            .shadow(radius: 5)
+    }
+}
+
+extension View {
+    func flagImageStyle() -> some View {
+        modifier(FlagImage())
+    }
+}
+
+
+//MARK: - PREVIEW
 #Preview {
     ContentView()
 }
