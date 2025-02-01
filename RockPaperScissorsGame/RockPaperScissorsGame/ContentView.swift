@@ -67,8 +67,11 @@ struct ContentView: View {
         
         if shouldWin {
             didWin = choice == winningMoves[appChoice]
+            print(didWin, 1)
         } else {
             didWin = winningMoves[choice] == appChoice
+            print(didWin, 2)
+            print(winningMoves[choice], appChoice)
         }
         
         if didWin {
