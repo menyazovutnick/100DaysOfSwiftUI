@@ -36,6 +36,9 @@ struct ContentView: View {
                 }
             }
             .navigationTitle(rootWord)
+            .toolbar(content: {
+                Button("Restart Game") {startGame()}
+            })
             .onSubmit(addNewWord)
             .onAppear(perform: startGame)
             .alert(errorTitle, isPresented: $showingError) {
@@ -80,6 +83,8 @@ struct ContentView: View {
     
     //MARK: - METHODS
     func startGame() {
+        usedWords.removeAll()
+        
         if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
             if let startWords = try? String(contentsOf: startWordsURL) {
                 let allWords = startWords.components(separatedBy: "\n")
