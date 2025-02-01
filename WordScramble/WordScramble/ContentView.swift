@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+
+//MARK: - PRIVATE PROPERTIES
 struct ContentView: View {
     @State private var usedWords = [String]()
     @State private var rootWord = ""
@@ -17,6 +19,16 @@ struct ContentView: View {
     @State private var errorMessage = ""
     @State private var showingError = false
     
+    private var score: Int {
+            var count = 0
+            for word in usedWords {
+                count += word.count
+            }
+            return count
+        }
+    
+    
+    //MARK: - UI
     var body: some View {
         NavigationStack {
             List {
@@ -34,6 +46,8 @@ struct ContentView: View {
                         }
                     }
                 }
+                
+                Text("Score: \(score)")
             }
             .navigationTitle(rootWord)
             .toolbar(content: {
@@ -49,6 +63,8 @@ struct ContentView: View {
         }
     }
     
+    
+    //MARK: - METHODS
     func addNewWord() {
         let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -81,7 +97,6 @@ struct ContentView: View {
         newWord = ""
     }
     
-    //MARK: - METHODS
     func startGame() {
         usedWords.removeAll()
         
@@ -128,6 +143,8 @@ struct ContentView: View {
     }
 }
 
+
+//MARK: - PREVIEW
 #Preview {
     ContentView()
 }
