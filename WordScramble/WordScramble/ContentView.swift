@@ -49,7 +49,12 @@ struct ContentView: View {
     func addNewWord() {
         let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
-        guard answer.count > 0 else {return}
+//        guard answer.count > 0 else {return}
+        
+        guard answer.count > 2 else {
+            wordError(title: "Word must be taller", message: "more than 2 letters")
+            return
+        }
         
         guard isOriginal(word: answer) else {
             wordError(title: "Word used already", message: "Be more original")
