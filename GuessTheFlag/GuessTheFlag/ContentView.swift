@@ -21,6 +21,8 @@ struct ContentView: View {
     @State private var questionCount = 1
     @State private var showingFinalAlert = false
     
+    @State private var animationDegrees = [0.0, 0.0, 0.0]
+    
     
     //MARK: - UI
     var body: some View {
@@ -50,12 +52,15 @@ struct ContentView: View {
                     ForEach(0..<3) { number in
                         Button {
                             flagTapped(number)
-                            print(questionCount)
                             questionCount += 1
+                            withAnimation {
+                                animationDegrees[number] += 360
+                            }
                         } label: {
                             Image(countries[number])
                                 .flagImageStyle()
                         }
+                        .rotation3DEffect(.degrees(animationDegrees[number]), axis: (x: 0, y: 1, z: 0))
                     }
                 }
                 .frame(maxWidth: .infinity)
